@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'pm-users',
+    selector: 'uf-users',
     styleUrls: ['./user-list.component.css'],
     templateUrl: './user-list.component.html'
 })
@@ -21,14 +21,16 @@ export class UserListComponent implements OnInit {
         title: 'Dr.',
         email: 'jdoe@gmail.com',
         imageUrl: 'https://randomuser.me/api/portraits/med/men/75.jpg',
-        phone: '585-962-7516'
+        phone: '585-962-7516',
+        starRating: 3
     },{
         userId: 2,
         name: 'Bob Smith',
         title: 'Mr.',
         email: '',
         imageUrl: 'https://randomuser.me/api/portraits/med/men/2.jpg',
-        phone: '555-962-7516'
+        phone: '555-962-7516',
+        starRating: 2
     }];
     filteredList: User[];
 
@@ -44,6 +46,10 @@ export class UserListComponent implements OnInit {
     
     filter(): void {
         this.filteredList = this.users.filter(u => u.name.includes(this.listFilter));
+    }
+
+    onRatingClicked(message: string) : void {
+        this.pageTitle = `User List: ${message}`
     }
 
     performFilter(filterBy: string) : User[] {
@@ -64,4 +70,5 @@ export interface User {
     email: string;
     imageUrl?: string;
     phone?: string;
+    starRating: number;
 }

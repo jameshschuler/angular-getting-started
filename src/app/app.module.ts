@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './users/user.component';
 import { ConvertPhoneNumber } from './shared/convert-phone-number.pipe';
+import { StarComponent } from './shared/star.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserListComponent,
-    ConvertPhoneNumber
+    ConvertPhoneNumber,
+    StarComponent
   ],
   imports: [
     BrowserModule,

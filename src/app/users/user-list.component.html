@@ -29,6 +29,7 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Rating</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +41,9 @@
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.phone | convertPhoneNumber: '-'}}</td>
+                        <td>
+                            <uf-star [rating]='user.starRating' (ratingClicked)='onRatingClicked($event)'></uf-star>
+                        </td>
                     </tr>
                 </tbody>
             </table>
