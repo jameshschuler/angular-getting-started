@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { UserListComponent } from './users/user.component';
 import { ConvertPhoneNumber } from './shared/convert-phone-number.pipe';
 import { StarComponent } from './shared/star.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { StarComponent } from './shared/star.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   bootstrap: [AppComponent, UserListComponent]
 })

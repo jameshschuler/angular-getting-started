@@ -1,37 +1,22 @@
 import { Component, OnInit } from "@angular/core";
+import { User } from './models/user';
+import { UserService } from './user.service';
 
 @Component({
     selector: 'uf-users',
-    styleUrls: ['./user-list.component.css'],
-    templateUrl: './user-list.component.html'
+    styleUrls: ['./user-list.component.css'], 
+    templateUrl: './user-list.component.html',
 })
 export class UserListComponent implements OnInit {
-    _listFilter: string;
+    private _listFilter: string;
 
-    constructor() {
-        this.filteredList = this.users;
-        this.listFilter = '';
+    constructor(private userService: UserService) {
     }
 
+    errorMessage: string;
     pageTitle = 'User List';
     showImage = false;
-    users: User[] = [{
-        userId: 1,
-        name: 'John Doe',
-        title: 'Dr.',
-        email: 'jdoe@gmail.com',
-        imageUrl: 'https://randomuser.me/api/portraits/med/men/75.jpg',
-        phone: '585-962-7516',
-        starRating: 3
-    },{
-        userId: 2,
-        name: 'Bob Smith',
-        title: 'Mr.',
-        email: '',
-        imageUrl: 'https://randomuser.me/api/portraits/med/men/2.jpg',
-        phone: '555-962-7516',
-        starRating: 2
-    }];
+    users: User[];
     filteredList: User[];
 
     get listFilter(): string { return this._listFilter; }
@@ -41,34 +26,28 @@ export class UserListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log("Method not implemented.");
+        this.userService.getUsers().subscribe({
+            next: searchResponse => {
+                this.users = searchResponse.results;
+                this.filteredList = this.users;
+            },
+            error: err => this.errorMessage = err
+        });
     }
     
-    filter(): void {
-        this.filteredList = this.users.filter(u => u.name.includes(this.listFilter));
-    }
-
     onRatingClicked(message: string) : void {
         this.pageTitle = `User List: ${message}`
-    }
-
-    performFilter(filterBy: string) : User[] {
-        filterBy = filterBy.toLocaleLowerCase();
-
-        return this.users.filter((user: User) => user.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
     }
 
     toggleImage() : void {
         this.showImage = !this.showImage;
     }
-}
 
-export interface User {
-    userId: number;
-    name: string;
-    title: string;
-    email: string;
-    imageUrl?: string;
-    phone?: string;
-    starRating: number;
+    private performFilter(filterBy: string) : User[] {
+        filterBy = filterBy.toLocaleLowerCase();
+
+        return this.users.filter((user: User) => {
+            return user.name.last.toLocaleLowerCase().indexOf(filterBy) !== -1 || user.name.first.toLocaleLowerCase().indexOf(filterBy) !== -1;
+        });
+    }
 }

@@ -6,16 +6,16 @@ import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core
     styleUrls: ['./star.component.css']
 })
 export class StarComponent implements OnChanges {
-    @Input() rating: number;
+    @Input() age: number;
     
     starWidth: number;
     @Output() ratingClicked: EventEmitter<string> = new EventEmitter<string>();
 
     onClick() : void {
-       this.ratingClicked.emit(`Rating of ${this.rating}`);
+       this.ratingClicked.emit(`Rating of ${this.age}`);
     }
 
     ngOnChanges(): void {
-        this.starWidth = this.rating * 75 / 5;
+        this.starWidth = (Math.round(Math.random() * 5)) * 75 / 5;
     }    
 }

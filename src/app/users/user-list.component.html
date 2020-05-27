@@ -27,6 +27,7 @@
                         </th>
                         <th>Title</th>
                         <th>Name</th>
+                        <th>Age</th>
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Rating</th>
@@ -35,14 +36,15 @@
                 <tbody>
                     <tr *ngFor='let user of filteredList'>
                         <td>
-                            <img [src]='user.imageUrl' [title]='user.name' [alt]='user.name' *ngIf="showImage">
+                            <img [src]='user.picture.medium' [title]='user.name.last' [alt]='user.name.last' *ngIf="showImage">
                         </td>
-                        <td>{{user.title}}</td>
-                        <td>{{user.name}}</td>
+                        <td>{{user.name.title}}</td>
+                        <td>{{user.name.last}}, {{user.name.first}}</td>
+                        <td>{{user.dob.age}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.phone | convertPhoneNumber: '-'}}</td>
                         <td>
-                            <uf-star [rating]='user.starRating' (ratingClicked)='onRatingClicked($event)'></uf-star>
+                            <uf-star [age]='user.dob.age' (ratingClicked)='onRatingClicked($event)'></uf-star>
                         </td>
                     </tr>
                 </tbody>
